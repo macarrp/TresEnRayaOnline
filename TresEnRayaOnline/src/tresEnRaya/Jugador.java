@@ -1,5 +1,11 @@
 package tresEnRaya;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
 import java.util.Scanner;
 
 public class Jugador {
@@ -22,37 +28,80 @@ public class Jugador {
 	
 	
 	// Pone una ficha en el tablero, también controla que los numeros introducidos sean validos
-	public void ponerFicha(Tablero tablero) {
+	public void ponerFicha(Tablero tablero, Socket j2) {
 		Scanner leer = new Scanner(System.in);
+		DataOutputStream dos = null;
+		DataInputStream dis = null;
+		int fila, columna;
 		
-		System.out.println("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha());
-		System.out.print("Fila ->: ");
-		int fila = leer.nextInt();
-		while(fila < 1 || fila > 3) {
-			System.out.println("Movimiento no valido");
-			tablero.mostrar();
+		if(this.getFichaJugador().getFicha().equals("X")) {
+			System.out.println("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha());
 			System.out.print("Fila ->: ");
 			fila = leer.nextInt();
-		}
-		
-		
-		System.out.print("Columna ^: ");
-		int columna = leer.nextInt();
-		while(columna < 1 || columna > 3) {
-			System.out.println("Movimiento no valido");
-			tablero.mostrar();
+			while(fila < 1 || fila > 3) {
+				System.out.println("Movimiento no valido");
+				tablero.mostrar();
+				System.out.print("Fila ->: ");
+				fila = leer.nextInt();
+			}
+			
 			System.out.print("Columna ^: ");
 			columna = leer.nextInt();
-		}
-		
-		if(tablero.getTablero(fila, columna).equals("-")) {
-			tablero.setTablero(fila, columna, getFichaJugador());
+			while(columna < 1 || columna > 3) {
+				System.out.println("Movimiento no valido");
+				tablero.mostrar();
+				System.out.print("Columna ^: ");
+				columna = leer.nextInt();
+			}
+			
+			if(tablero.getTablero(fila, columna).equals("-")) {
+				tablero.setTablero(fila, columna, getFichaJugador());
+			}
+			else {
+				System.out.println("Ya hay una pieza en esa posicion");
+				System.out.println();
+				tablero.mostrar();
+				this.ponerFicha(tablero, j2);
+			}
 		}
 		else {
-			System.out.println("Ya hay una pieza en esa posicion");
-			System.out.println();
-			tablero.mostrar();
-			this.ponerFicha(tablero);
+			try {
+				dos = new DataOutputStream(j2.getOutputStream());
+				dis = new DataInputStream(j2.getInputStream());
+				
+				dos.writeBytes("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha());
+				
+				dos.writeBytes("Fila ->: \n");
+				fila = dis.readInt();
+				while(fila < 1 || fila > 3) {
+					dos.writeBytes("Movimiento no valido");
+					tablero.mostrarACliente(j2);
+					dos.writeBytes("Fila ->: \n");
+					fila = dis.readInt();
+				}
+				
+				dos.writeBytes("Columna ->: \n");
+				columna = dis.readInt();
+				while(columna < 1 || columna > 3) {
+					dos.writeBytes("Movimiento no valido");
+					tablero.mostrarACliente(j2);
+					dos.writeBytes("columna ->: \n");
+					columna = dis.readInt();
+				}
+				
+				if(tablero.getTablero(fila, columna).equals("-")) {
+					tablero.setTablero(fila, columna, getFichaJugador());
+				}
+				else {
+					dos.writeBytes("Ya hay una pieza en esa posicion \n");
+					tablero.mostrarACliente(j2);
+					this.ponerFicha(tablero, j2);
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}

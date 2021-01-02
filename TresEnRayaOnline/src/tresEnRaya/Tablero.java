@@ -1,5 +1,9 @@
 package tresEnRaya;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
 public class Tablero {
 	private String[][] tablero;
 	private Jugador jugador1, jugador2;
@@ -33,6 +37,24 @@ public class Tablero {
 			System.out.println();
 		}
 		System.out.println();
+	}
+	
+	public void mostrarACliente(Socket conexion) {
+		try {
+			DataOutputStream dos = new DataOutputStream(conexion.getOutputStream());
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					dos.writeBytes('[' + tablero[i][j] + ']');
+				}
+				dos.flush();
+				dos.writeBytes("\n");
+				
+			}
+			dos.writeBytes("\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	// Limpia el tablero de modo que no haya fichas en el tablero

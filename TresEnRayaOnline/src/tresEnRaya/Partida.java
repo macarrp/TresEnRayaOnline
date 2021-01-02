@@ -1,10 +1,17 @@
 package tresEnRaya;
 
+import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Partida {
-	public static void iniciarPartida() {
+	private Socket cliente;
+	
+	public Partida(Socket cliente) {
+		this.cliente = cliente;
+	}
+	
+	public void iniciarPartida() {
 		Random r = new Random();
 		int turno = r.nextInt(1); // Me devuelve un numero entre 0 y 1
 		
@@ -16,20 +23,22 @@ public class Partida {
 		Tablero tablero = new Tablero(j1, j2);
 		
 		tablero.mostrar();
+		tablero.mostrarACliente(cliente);
 		
 		boolean hayGanador = false;
 		while(!hayGanador) {
 			if(turno == 0) {
-				j1.ponerFicha(tablero);
+				j1.ponerFicha(tablero, cliente);
 				turno = 1;
 				hayGanador = tablero.hayGanador(j1);
 			}
 			else {
-				j2.ponerFicha(tablero);
+				j2.ponerFicha(tablero, cliente);
 				turno = 0;
 				hayGanador = tablero.hayGanador(j2);
 			}
 			tablero.mostrar();
+			tablero.mostrarACliente(cliente);
 		}
 		
 		// Si salgo del bucle es porque hay un ganador
@@ -40,7 +49,7 @@ public class Partida {
 		reiniciarPartida(new Scanner(System.in));
 	}
 	
-	public static void reiniciarPartida(Scanner yn) {
+	public void reiniciarPartida(Scanner yn) {
 		String respuesta = yn.nextLine();
 		if(respuesta.equalsIgnoreCase("y")) {
 			iniciarPartida();
@@ -55,7 +64,4 @@ public class Partida {
 		}
 	}
 	
-	public static void main(String[] args) {
-		iniciarPartida();
-	}
 }
