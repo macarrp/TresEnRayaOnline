@@ -11,8 +11,6 @@ public class Tablero {
 		jugador1 = j1;
 		jugador2 = j2;
 	}
-
-//	public void
 	
 	// Pone una ficha en el tablero una vez pasados su fila y su columna
 	// El rango de la fila y de la columna debe estar entre 1 y 3
@@ -20,10 +18,13 @@ public class Tablero {
 			tablero[fila-1][columna-1] = ficha.getFicha();	
 	}
 	
+	// Devuelve una cadena pasados su fila y su columna
+	// El rango de la fila y de la columna debe estar entre 1 y 3
 	public String getTablero(int fila, int columna){
 		return tablero[fila-1][columna-1];
 	}
 	
+	// Muestra el estado actual del tablero
 	public void mostrar() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -34,6 +35,7 @@ public class Tablero {
 		System.out.println();
 	}
 
+	// Limpia el tablero de modo que no haya fichas en el tablero
 	public void limpiar() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -42,10 +44,12 @@ public class Tablero {
 		}
 	}
 
+	// Devuelve cierto si el jugador ha ganado, devuelve falso en caso contrario
 	public boolean hayGanador(Jugador jugador) {
 		return ganaPorFilas(jugador) || ganaPorColumnas(jugador) || ganaPorDiagonal(jugador);
 	}
 
+	// Devuelve cierto si el jugador ha ganado por filas y falso en caso contrario
 	public boolean ganaPorFilas(Jugador jugador) {
 		String fila = "", fila2 = "", fila3 = "";
 		String ficha = jugador.getFichaJugador().getFicha();
@@ -74,6 +78,7 @@ public class Tablero {
 		return false;
 	}
 
+	// Devuelve cierto si el jugador ha ganado por columnas y falso en caso contrario
 	public boolean ganaPorColumnas(Jugador jugador) {
 		String columna = "", columna2 = "", columna3 = "";
 		String ficha = jugador.getFichaJugador().getFicha();
@@ -102,6 +107,7 @@ public class Tablero {
 		return false;
 	}
 
+	// Devuelve cierto si el jugador ha ganado por las diagonales y falso en caso contrario
 	public boolean ganaPorDiagonal(Jugador jugador) {
 		String ficha = jugador.getFichaJugador().getFicha();
 		String fichas = ficha + ficha + ficha;

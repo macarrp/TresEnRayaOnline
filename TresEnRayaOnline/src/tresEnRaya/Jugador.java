@@ -21,7 +21,7 @@ public class Jugador {
 	}
 	
 	
-	// Pone una ficha en el tablero
+	// Pone una ficha en el tablero, también controla que los numeros introducidos sean validos
 	public void ponerFicha(Tablero tablero) {
 		Scanner leer = new Scanner(System.in);
 		
@@ -44,7 +44,7 @@ public class Jugador {
 			System.out.print("Columna ^: ");
 			columna = leer.nextInt();
 		}
-		//boolean b = tablero.getTablero(fila, columna).equals("-");
+		
 		if(tablero.getTablero(fila, columna).equals("-")) {
 			tablero.setTablero(fila, columna, getFichaJugador());
 		}
