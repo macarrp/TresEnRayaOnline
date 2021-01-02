@@ -6,8 +6,6 @@ import java.net.Socket;
 
 public class Principal {
 	public static void main(String[] args) {
-//		Partida.iniciarPartida();
-		
 		try(ServerSocket server = new ServerSocket(5050)){
 			while(true) {
 				System.out.println("Esperando a jugador 2...");

@@ -81,8 +81,8 @@ public class Jugador {
 				
 				dos.writeBytes("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha() + "\n\n");
 				
-				dos.writeBytes("Fila ->: \r\n");
-				fila = dis.readInt();
+				dos.writeBytes("Fila ->: \r\n"); 
+				fila = dis.readInt(); 			// SE QUEDA PILLADO EN ESTA LINEA
 				while(fila < 1 || fila > 3) {
 					dos.writeBytes("Movimiento no valido");
 					tablero.mostrarACliente(j2);

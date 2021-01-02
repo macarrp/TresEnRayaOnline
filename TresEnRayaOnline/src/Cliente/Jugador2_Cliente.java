@@ -23,7 +23,7 @@ public class Jugador2_Cliente {
 			br = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 			dos = new DataOutputStream(conexion.getOutputStream());
 			
-			while((linea = br.readLine()) != null) {
+			while((linea = br.readLine()) != null) { // No sale del maldito bucle xD
 				System.out.println(linea);
 				linea = br.readLine();
 			}
