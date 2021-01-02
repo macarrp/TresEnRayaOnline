@@ -36,13 +36,24 @@ public class Partida {
 		if(tablero.hayGanador(j1)) System.out.println("Ha ganado el jugador 1");
 		else System.out.println("Ha ganado el jugador 2");
 		
-//		Scanner leer = new Scanner(System.in);
-//		System.out.println("¿Otra partida? (Y/N)");
-//		if(leer.nextLine().equalsIgnoreCase("y")) {
-//			tablero.limpiar();
-//		}
+		System.out.println("¿Otra partida? (Y/N)");
+		reiniciarPartida(new Scanner(System.in));
 	}
 	
+	public static void reiniciarPartida(Scanner yn) {
+		String respuesta = yn.nextLine();
+		if(respuesta.equalsIgnoreCase("y")) {
+			iniciarPartida();
+		}
+		else if(respuesta.equalsIgnoreCase("n")) {
+			System.out.println("Partida terminada");
+		}
+		else {
+			System.out.println("Caracter no valido");
+			System.out.println("¿Otra partida? (Y/N)");
+			reiniciarPartida(new Scanner(System.in));
+		}
+	}
 	
 	public static void main(String[] args) {
 		iniciarPartida();
