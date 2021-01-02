@@ -12,8 +12,8 @@ public class Partida {
 	}
 	
 	public void iniciarPartida() {
-		Random r = new Random();
-		int turno = 0; // r.nextInt(0) Me devuelve un numero entre 0 y 1
+		Random r = new Random(); // r.nextInt(0) Me devuelve un numero entre 0 y 1
+		int turno = 1; // Para que el jugador 2 empieze primero
 		
 		Ficha fichaX = new Ficha("X"), fichaO = new Ficha("O");
 		

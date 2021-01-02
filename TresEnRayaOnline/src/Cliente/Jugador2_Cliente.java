@@ -13,27 +13,26 @@ public class Jugador2_Cliente {
 		Socket conexion = null;
 		BufferedReader br = null;
 		DataOutputStream dos = null;
-		String linea;
+		
 		int scanLeido, leido;
 		Scanner leo = new Scanner(System.in);
 		
+		noseque(br, dos, conexion, leo); 
+	}
+	
+	public static void noseque(BufferedReader br, DataOutputStream dos, Socket conexion, Scanner leo) {
 		try {
 			conexion = new Socket("localhost", 5050);
-			
 			br = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 			dos = new DataOutputStream(conexion.getOutputStream());
+			String linea;
 			
 			while((linea = br.readLine()) != null) { // No sale del maldito bucle xD
 				System.out.println(linea);
 				linea = br.readLine();
 			}
-			
-			scanLeido = leo.nextInt(); // Leo fila
-			dos.writeInt(scanLeido);
-			
-			scanLeido = leo.nextInt(); // Leo columna
-			dos.writeInt(scanLeido);
-			
+			dos.writeInt(leo.nextInt()); // Leo fila
+			dos.writeInt(leo.nextInt()); // Leo columna
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,5 +40,7 @@ public class Jugador2_Cliente {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
+	
 }
