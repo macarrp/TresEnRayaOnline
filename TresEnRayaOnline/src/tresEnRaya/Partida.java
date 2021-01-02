@@ -13,7 +13,7 @@ public class Partida {
 	
 	public void iniciarPartida() {
 		Random r = new Random();
-		int turno = r.nextInt(1); // Me devuelve un numero entre 0 y 1
+		int turno = r.nextInt(2); // Me devuelve un numero entre 0 y 1
 		
 		Ficha fichaX = new Ficha("X"), fichaO = new Ficha("O");
 		

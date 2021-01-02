@@ -35,6 +35,14 @@ public class Jugador {
 		int fila, columna;
 		
 		if(this.getFichaJugador().getFicha().equals("X")) {
+			try {
+				dos = new DataOutputStream(j2.getOutputStream());
+				dos.writeBytes("Esperando a que jugador 1 haga su jugada \n\n");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			System.out.println("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha());
 			System.out.print("Fila ->: ");
 			fila = leer.nextInt();
@@ -69,23 +77,25 @@ public class Jugador {
 				dos = new DataOutputStream(j2.getOutputStream());
 				dis = new DataInputStream(j2.getInputStream());
 				
-				dos.writeBytes("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha());
+				System.out.println("Esperando que jugador 2 haga su jugada");
 				
-				dos.writeBytes("Fila ->: \n");
+				dos.writeBytes("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha() + "\n\n");
+				
+				dos.writeBytes("Fila ->: \r\n");
 				fila = dis.readInt();
 				while(fila < 1 || fila > 3) {
 					dos.writeBytes("Movimiento no valido");
 					tablero.mostrarACliente(j2);
-					dos.writeBytes("Fila ->: \n");
+					dos.writeBytes("Fila ->: \r\n");
 					fila = dis.readInt();
 				}
 				
-				dos.writeBytes("Columna ->: \n");
+				dos.writeBytes("Columna ->: \r\n");
 				columna = dis.readInt();
 				while(columna < 1 || columna > 3) {
 					dos.writeBytes("Movimiento no valido");
 					tablero.mostrarACliente(j2);
-					dos.writeBytes("columna ->: \n");
+					dos.writeBytes("columna ->: \r\n");
 					columna = dis.readInt();
 				}
 				
@@ -93,7 +103,7 @@ public class Jugador {
 					tablero.setTablero(fila, columna, getFichaJugador());
 				}
 				else {
-					dos.writeBytes("Ya hay una pieza en esa posicion \n");
+					dos.writeBytes("Ya hay una pieza en esa posicion \n\n");
 					tablero.mostrarACliente(j2);
 					this.ponerFicha(tablero, j2);
 				}
