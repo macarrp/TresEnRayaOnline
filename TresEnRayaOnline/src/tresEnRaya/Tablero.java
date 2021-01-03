@@ -6,14 +6,11 @@ import java.net.Socket;
 
 public class Tablero {
 	private String[][] tablero;
-	private Jugador jugador1, jugador2;
 
 	// Inicializa el tablero pasados como parámetros dos jugadores
-	public Tablero(Jugador j1, Jugador j2) {
+	public Tablero() {
 		this.tablero = new String[3][3];
 		limpiar();
-		jugador1 = j1;
-		jugador2 = j2;
 	}
 	
 	// Pone una ficha en el tablero una vez pasados su fila y su columna
@@ -39,6 +36,7 @@ public class Tablero {
 		System.out.println();
 	}
 	
+	// Muestra al cliente el estado actual del tablero
 	public void mostrarACliente(Socket conexion) {
 		DataOutputStream dos = null;
 		String enviado = "";
@@ -68,6 +66,7 @@ public class Tablero {
 		}
 	}
 	
+	// Devuelve cierto si el tablero esta lleno y falso en caso contrario
 	public boolean tableroLleno() {
 		int lleno = 0;
 		for (int i = 0; i < 3; i++) {
@@ -78,7 +77,7 @@ public class Tablero {
 		return lleno == 9;
 	}
 
-	// Devuelve cierto si el jugador ha ganado, devuelve falso en caso contrario
+	// Devuelve cierto si el jugador ha ganado y devuelve falso en caso contrario
 	public boolean hayGanador(Jugador jugador) {
 		return ganaPorFilas(jugador) || ganaPorColumnas(jugador) || ganaPorDiagonal(jugador);
 	}
@@ -108,7 +107,8 @@ public class Tablero {
 			fila3 = fila3 + tablero[2][i];
 		}
 		if(fila3.equals(filaFichas)) return true;
-			
+		
+		// Si ninguna fila coincide entonces es falso
 		return false;
 	}
 
@@ -138,6 +138,7 @@ public class Tablero {
 		}
 		if(columna3.equals(columnaFichas)) return true;
 			
+		// Si ninguna columna coincide entonces es falso
 		return false;
 	}
 

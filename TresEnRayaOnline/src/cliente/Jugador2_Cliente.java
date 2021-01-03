@@ -1,4 +1,4 @@
-package Cliente;
+package cliente;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -14,7 +14,6 @@ public class Jugador2_Cliente {
 		BufferedReader br = null;
 		DataOutputStream dos = null;
 		
-		int scanLeido, leido;
 		Scanner leo = new Scanner(System.in);
 		
 		try {
@@ -28,8 +27,6 @@ public class Jugador2_Cliente {
 			eligePosicion(br, dos, leo); // Cuarta ficha
 			eligePosicion(br, dos, leo); // Quinta ficha
 			eligePosicion(br, dos, leo); // Sexta lectura por si hay empate
-			
-			
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -48,7 +45,6 @@ public class Jugador2_Cliente {
 				e.printStackTrace();
 			}
 		}
-
 	}
 	
 	public static void eligePosicion(BufferedReader br, DataOutputStream dos, Scanner leo) {
@@ -60,15 +56,13 @@ public class Jugador2_Cliente {
 				fila = leo.nextInt();	// Leo fila
 				dos.writeInt(fila); 
 //				if(fila < 1 || fila > 3) eligePosicion(br, dos, leo); 
-				
-				
+								
 				System.out.println(br.readLine()); // Digo que escriba columna
 				
 				columna = leo.nextInt();	// Leo columna
 				dos.writeInt(columna);
 //				if(columna < 1 || columna > 3) eligePosicion(br, dos, leo);
-				
-				
+							
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -80,8 +74,8 @@ public class Jugador2_Cliente {
 		try {
 			linea = br.readLine();
 			while(!linea.equals("-1")) { // Condicion de parada para leer la posicion
-				if(linea.equals("-2")) System.exit(0); // El servidor me enviará -2 si el tablero está lleno
-				
+				if(linea.equals("-2")) System.exit(0); 	// El servidor me enviará -2 si el tablero está lleno
+														// Por lo que ya paro la aplicación
 				System.out.println(linea);	
 				
 				linea = br.readLine();

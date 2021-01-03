@@ -25,7 +25,7 @@ public class Partida {
 		try {
 			DataOutputStream dos = new DataOutputStream(cliente.getOutputStream()); // Canal de comunicacion con el cliente
 																					// Solo lo uso para decir el ganador
-			Tablero tablero = new Tablero(j1, j2);
+			Tablero tablero = new Tablero();
 			
 			tablero.mostrar();
 			tablero.mostrarACliente(cliente);
