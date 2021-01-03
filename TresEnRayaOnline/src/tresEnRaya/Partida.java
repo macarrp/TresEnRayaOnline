@@ -24,8 +24,11 @@ public class Partida {
 		
 		try {
 			DataOutputStream dos = new DataOutputStream(cliente.getOutputStream()); // Canal de comunicacion con el cliente
-																					// Solo lo uso para decir el ganador
+																					
 			Tablero tablero = new Tablero();
+			
+			if(turno == 0) System.out.println("TURNO JUGADOR 1");
+			else dos.writeBytes("TURNO JUGADOR 2\n");
 			
 			tablero.mostrar();
 			tablero.mostrarACliente(cliente);
@@ -42,6 +45,15 @@ public class Partida {
 					turno = 0;
 					hayGanador = tablero.hayGanador(j2);
 				}
+				if(turno == 0) {
+					System.out.println("TURNO JUGADOR 1"); 
+					dos.writeBytes("TURNO JUGADOR 1\n");
+				}
+				else {
+					System.out.println("TURNO JUGADOR 2"); 
+					dos.writeBytes("TURNO JUGADOR 2\n");
+				}
+				
 				tablero.mostrar();
 				tablero.mostrarACliente(cliente);
 				tableroLleno = tablero.tableroLleno();

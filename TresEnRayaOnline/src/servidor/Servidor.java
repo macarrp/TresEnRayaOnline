@@ -1,20 +1,28 @@
-package tresEnRaya;
+package servidor;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Servidor {
-	public static void main(String[] args) {
-		try(ServerSocket server = new ServerSocket(1337)){
+import tresEnRaya.Partida;
+
+public class Servidor extends Thread{
+	int puerto;
+	
+	public Servidor(int puerto) {
+		this.puerto = puerto;
+	}
+	
+	public void run() {
+		try(ServerSocket server = new ServerSocket(puerto)){
 			while(true) {
 				System.out.println("Esperando a nuevo jugador 2...");
 				try {
-					Socket j2 = server.accept();
-					System.out.println("Jugador conectado con la ip " + j2.getInetAddress());
+					Socket sc = server.accept();
+					System.out.println("Jugador conectado con la ip " + sc.getInetAddress());
 					System.out.println("Empezando partida");
 					
-					Partida p = new Partida(j2);
+					Partida p = new Partida(sc);
 					p.iniciarPartida();
 				} catch(IOException e) {
 					// TODO Auto-generated catch block

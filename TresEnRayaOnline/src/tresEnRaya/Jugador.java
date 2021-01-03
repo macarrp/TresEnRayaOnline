@@ -43,6 +43,7 @@ public class Jugador {
 				e.printStackTrace();
 			}
 			
+			
 			System.out.println("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha());
 			System.out.print("Fila ->: ");
 			fila = leer.nextInt();
@@ -78,6 +79,7 @@ public class Jugador {
 				dis = new DataInputStream(j2.getInputStream());
 				
 				System.out.println("Esperando que jugador 2 haga su jugada"); // Mientras jugador 1 hace su jugada, aviso a jugador 2
+				
 				
 				dos.writeBytes("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha() + "\n");
 				

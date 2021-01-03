@@ -8,8 +8,16 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class Jugador2_Cliente {
-	public static void main(String[] args) {
+public class Cliente_J2 extends Thread{
+	String host;
+	int puerto;
+	
+	public Cliente_J2(String host, int puerto) {
+		this.host = host;
+		this.puerto = puerto;
+	}
+	
+	public void run() {
 		Socket conexion = null;
 		BufferedReader br = null;
 		DataOutputStream dos = null;
@@ -17,7 +25,7 @@ public class Jugador2_Cliente {
 		Scanner leo = new Scanner(System.in);
 		
 		try {
-			conexion = new Socket("localhost", 1337);
+			conexion = new Socket(host, puerto);
 			br = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 			dos = new DataOutputStream(conexion.getOutputStream());
 			
@@ -86,4 +94,5 @@ public class Jugador2_Cliente {
 			e.printStackTrace();
 		}
 	}
+	
 }
