@@ -70,6 +70,7 @@ public class Jugador {
 				System.out.println();
 				tablero.mostrar();
 				this.ponerFicha(tablero, j2);
+				
 			}
 		}
 		else {
@@ -85,23 +86,22 @@ public class Jugador {
 				dos.writeBytes("-1\r\n"); // Marca de fin de linea(bucle)
 				fila = dis.readInt(); 			
 				
-				while(fila < 1 || fila > 3) {
-					dos.writeBytes("Movimiento no valido");
+				while(fila < 1 || fila > 3) { // PARTE CLIENTE?
+					dos.writeBytes("Movimiento no valido\n");
 					tablero.mostrarACliente(j2);
 					
-					dos.writeBytes("Fila ->: \r\n"); 
-					fila = dis.readInt();
+					ponerFicha(tablero, j2);
 				}
 				
 				dos.writeBytes("Columna ->: \r\n");
+				
 				columna = dis.readInt();
 				
-				while(columna < 1 || columna > 3) {
-					dos.writeBytes("Movimiento no valido");
+				while(columna < 1 || columna > 3) { // PARTE CLIENTE?
+					dos.writeBytes("Movimiento no valido\n");
 					tablero.mostrarACliente(j2);
 					
-					dos.writeBytes("Columna ->: \r\n");
-					columna = dis.readInt();
+					this.ponerFicha(tablero, j2);
 				}
 				
 				if(tablero.getTablero(fila, columna).equals("-")) {

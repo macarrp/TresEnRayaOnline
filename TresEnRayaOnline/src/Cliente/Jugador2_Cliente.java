@@ -26,7 +26,7 @@ public class Jugador2_Cliente {
 			eligePosicion(br, dos, conexion, leo); // Segunda ficha
 			eligePosicion(br, dos, conexion, leo); // Tercera ficha
 			eligePosicion(br, dos, conexion, leo); // Cuarta ficha
-			
+			eligePosicion(br, dos, conexion, leo); // Quinta ficha
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -50,6 +50,8 @@ public class Jugador2_Cliente {
 					linea = br.readLine();
 				}
 				dos.writeInt(leo.nextInt()); // Leo fila
+				
+				System.out.println(br.readLine());
 				dos.writeInt(leo.nextInt()); // Leo columna
 				
 			} catch (IOException e) {
