@@ -53,13 +53,13 @@ public class Partida {
 				System.out.println(ganador);
 				dos.writeBytes(ganador + "\r\n");
 			}
-			else {
+			else if(tablero.hayGanador(j2)){
 				ganador = "Ha ganado el jugador 2";
 				System.out.println(ganador);
 				dos.writeBytes(ganador + "\r\n");
 			}
 			
-			if(tableroLleno) {
+			else {
 				ganador = "EMPATE";
 				System.out.println(ganador);
 				dos.writeBytes(ganador + "\r\n");

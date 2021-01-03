@@ -22,11 +22,12 @@ public class Jugador2_Cliente {
 			br = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 			dos = new DataOutputStream(conexion.getOutputStream());
 			
-			eligePosicion(br, dos, conexion, leo); // Primera ficha
-			eligePosicion(br, dos, conexion, leo); // Segunda ficha
-			eligePosicion(br, dos, conexion, leo); // Tercera ficha
-			eligePosicion(br, dos, conexion, leo); // Cuarta ficha
-			eligePosicion(br, dos, conexion, leo); // Quinta ficha
+			eligePosicion(br, dos, leo); // Primera ficha
+			eligePosicion(br, dos, leo); // Segunda ficha
+			eligePosicion(br, dos, leo); // Tercera ficha
+			eligePosicion(br, dos, leo); // Cuarta ficha
+			eligePosicion(br, dos, leo); // Quinta ficha
+			eligePosicion(br, dos, leo); // Sexta lectura por si hay empate
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -38,13 +39,13 @@ public class Jugador2_Cliente {
 
 	}
 	
-	public static void eligePosicion(BufferedReader br, DataOutputStream dos, Socket conexion, Scanner leo) {
+	public static void eligePosicion(BufferedReader br, DataOutputStream dos, Scanner leo) {
 			String linea;
 			try {
 				linea = br.readLine();
 				
-				while(!linea.equals("-1")) { 
-					if(linea.equals("-2"))System.exit(0);
+				while(!linea.equals("-1")) { // Condicion de parada para leer la posicion
+					if(linea.equals("-2"))System.exit(0); // El servidor me enviará -2 si el tablero está lleno
 					
 					System.out.println(linea);	
 					
