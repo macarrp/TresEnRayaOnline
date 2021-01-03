@@ -63,7 +63,7 @@ public class Tablero {
 	public void limpiar() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				tablero[i][j].equals("-");
+				tablero[i][j] = "-";
 			}
 		}
 	}
@@ -72,7 +72,7 @@ public class Tablero {
 		int lleno = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				lleno++;
+				if(!tablero[i][j].equals("-")) lleno++;
 			}
 		}
 		return lleno == 9;

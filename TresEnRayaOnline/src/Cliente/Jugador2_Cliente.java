@@ -17,24 +17,17 @@ public class Jugador2_Cliente {
 		int scanLeido, leido;
 		Scanner leo = new Scanner(System.in);
 		
-		noseque(br, dos, conexion, leo); 
-		
-	}
-	
-	public static void noseque(BufferedReader br, DataOutputStream dos, Socket conexion, Scanner leo) {
 		try {
 			conexion = new Socket("localhost", 5050);
 			br = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 			dos = new DataOutputStream(conexion.getOutputStream());
-			String linea = br.readLine();
 			
-			while(linea != null) { // Mandar null o -1
-				System.out.println(linea);				
-				linea = br.readLine();
-			}
+			eligePosicion(br, dos, conexion, leo); // Primera ficha
+			eligePosicion(br, dos, conexion, leo); // Segunda ficha
+			eligePosicion(br, dos, conexion, leo); // Tercera ficha
+			eligePosicion(br, dos, conexion, leo); // Cuarta ficha
 			
-			dos.writeInt(leo.nextInt()); // Leo fila
-			dos.writeInt(leo.nextInt()); // Leo columna
+			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,6 +36,28 @@ public class Jugador2_Cliente {
 			e.printStackTrace();
 		}
 		
+		
+		
 	}
 	
+	public static void eligePosicion(BufferedReader br, DataOutputStream dos, Socket conexion, Scanner leo) {
+			String linea;
+			try {
+				linea = br.readLine();
+				
+				while(!linea.equals("-1")) { 
+					System.out.println(linea);				
+					linea = br.readLine();
+				}
+				dos.writeInt(leo.nextInt()); // Leo fila
+				dos.writeInt(leo.nextInt()); // Leo columna
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+
+	}
 }
