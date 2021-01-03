@@ -29,6 +29,8 @@ public class Jugador2_Cliente {
 			eligePosicion(br, dos, leo); // Quinta ficha
 			eligePosicion(br, dos, leo); // Sexta lectura por si hay empate
 			
+			
+			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,24 +38,41 @@ public class Jugador2_Cliente {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		finally {
+			try {
+				dos.close();
+				br.close();
+				conexion.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	}
 	
 	public static void eligePosicion(BufferedReader br, DataOutputStream dos, Scanner leo) {
 			String linea;
+			int fila, columna;
 			try {
 				linea = br.readLine();
 				
 				while(!linea.equals("-1")) { // Condicion de parada para leer la posicion
-					if(linea.equals("-2"))System.exit(0); // El servidor me enviará -2 si el tablero está lleno
+					if(linea.equals("-2")) System.exit(0); // El servidor me enviará -2 si el tablero está lleno
 					
 					System.out.println(linea);	
 					
 					linea = br.readLine();
 				}
-				dos.writeInt(leo.nextInt()); // Leo fila
+				fila = leo.nextInt();
+				if(fila < 1 || fila > 3) eligePosicion(br, dos, leo);
+				else dos.writeInt(leo.nextInt()); // Leo fila
 				
-				System.out.println(br.readLine());
+				System.out.println(br.readLine()); // Digo que escriba columna
+				
+				columna = leo.nextInt();
+				if(columna < 1 || columna > 3) eligePosicion(br, dos, leo);
+				else dos.writeInt(leo.nextInt());
 				dos.writeInt(leo.nextInt()); // Leo columna
 				
 			} catch (IOException e) {

@@ -29,15 +29,15 @@ public class Jugador {
 	
 	// Pone una ficha en el tablero, también controla que los numeros introducidos sean validos
 	public void ponerFicha(Tablero tablero, Socket j2) {
-		Scanner leer = new Scanner(System.in);
-		DataOutputStream dos = null;
-		DataInputStream dis = null;
-		int fila, columna;
+		Scanner leer = new Scanner(System.in); // Leo por teclado en caso de que juegue el servidor
+		DataOutputStream dos = null; // Dos canales para recibir datos del cliente 
+		DataInputStream dis = null;  
+		int fila, columna;			 // Las posiciones donde se colocaran las fichas
 		
-		if(this.getFichaJugador().getFicha().equals("X")) {
+		if(this.getFichaJugador().getFicha().equals("X")) { // JUGADOR 1
 			try {
 				dos = new DataOutputStream(j2.getOutputStream());
-				dos.writeBytes("Esperando a que jugador 1 haga su jugada \n\n");
+				dos.writeBytes("Esperando a que jugador 1 haga su jugada \n"); // Mientras jugador 1 hace su jugada, aviso a jugador 2
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -63,13 +63,12 @@ public class Jugador {
 			}
 			
 			if(tablero.getTablero(fila, columna).equals("-")) {		// Si no hay una ficha en esa posicion, la pone
-				tablero.setTablero(fila, columna, getFichaJugador());
+				tablero.setTablero(fila, columna, getFichaJugador()); // Evito que se pongan fichas superpuestas
 			}
 			else {
-				System.out.println("Ya hay una pieza en esa posicion");
-				System.out.println();
+				System.out.println("¡Ya hay una pieza en esa posicion! \n"); // Si se intenta, me avisa
 				tablero.mostrar();
-				this.ponerFicha(tablero, j2);
+				this.ponerFicha(tablero, j2); // Vuelvo a preguntar por una posicion valida
 				
 			}
 		}
@@ -78,12 +77,12 @@ public class Jugador {
 				dos = new DataOutputStream(j2.getOutputStream());
 				dis = new DataInputStream(j2.getInputStream());
 				
-				System.out.println("Esperando que jugador 2 haga su jugada");
+				System.out.println("Esperando que jugador 2 haga su jugada"); // Mientras jugador 1 hace su jugada, aviso a jugador 2
 				
 				dos.writeBytes("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha() + "\n");
 				
 				dos.writeBytes("Fila ->:\r");
-				dos.writeBytes("-1\r\n"); // Marca de fin de linea(bucle)
+				dos.writeBytes("-1\r\n"); // Marca de fin de bucle
 				fila = dis.readInt(); 			
 				
 				while(fila < 1 || fila > 3) { // PARTE CLIENTE?
@@ -104,13 +103,13 @@ public class Jugador {
 					this.ponerFicha(tablero, j2);
 				}
 				
-				if(tablero.getTablero(fila, columna).equals("-")) {
-					tablero.setTablero(fila, columna, getFichaJugador());
+				if(tablero.getTablero(fila, columna).equals("-")) { // Si no hay una ficha en esa posicion, la pone
+					tablero.setTablero(fila, columna, getFichaJugador()); // Evito que se pongan fichas superpuestas
 				}
 				else {
-					dos.writeBytes("Ya hay una pieza en esa posicion \n");
+					dos.writeBytes("¡Ya hay una pieza en esa posicion! \n");
 					tablero.mostrarACliente(j2);
-					this.ponerFicha(tablero, j2);
+					this.ponerFicha(tablero, j2); // Vuelvo a preguntar por una posicion valida
 				}
 				
 			} catch (IOException e) {
