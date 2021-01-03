@@ -57,16 +57,17 @@ public class Jugador2_Cliente {
 			try {
 				leeMensajesServidor(br);
 				
-				fila = leo.nextInt();
-				if(fila < 1 || fila > 3) leeMensajesServidor(br); // Si no es valido se queda pillado en el br.readline de arriba
-				else dos.writeInt(leo.nextInt()); // Leo fila
+				fila = leo.nextInt();	// Leo fila
+				dos.writeInt(fila); 
+//				if(fila < 1 || fila > 3) eligePosicion(br, dos, leo); 
+				
 				
 				System.out.println(br.readLine()); // Digo que escriba columna
 				
-				columna = leo.nextInt();
-				if(columna < 1 || columna > 3) leeMensajesServidor(br);
-				else dos.writeInt(leo.nextInt());
-				dos.writeInt(leo.nextInt()); // Leo columna
+				columna = leo.nextInt();	// Leo columna
+				dos.writeInt(columna);
+//				if(columna < 1 || columna > 3) eligePosicion(br, dos, leo);
+				
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

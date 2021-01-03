@@ -47,7 +47,7 @@ public class Jugador {
 			System.out.print("Fila ->: ");
 			fila = leer.nextInt();
 			while(fila < 1 || fila > 3) {
-				System.out.println("Movimiento no valido");
+				System.out.println("Fila no valido");
 				tablero.mostrar();
 				System.out.print("Fila ->: ");
 				fila = leer.nextInt();
@@ -56,7 +56,7 @@ public class Jugador {
 			System.out.print("Columna ^: ");
 			columna = leer.nextInt();
 			while(columna < 1 || columna > 3) {
-				System.out.println("Movimiento no valido");
+				System.out.println("Columna no valido");
 				tablero.mostrar();
 				System.out.print("Columna ^: ");
 				columna = leer.nextInt();
@@ -85,10 +85,10 @@ public class Jugador {
 				dos.writeBytes("-1\r\n"); // Marca de fin de bucle
 				fila = dis.readInt(); 			
 				
-//				while(fila < 1 || fila > 3) { // PARTE CLIENTE?
-//					dos.writeBytes("Movimiento no valido\n");
+//				if(fila < 1 || fila > 3) { // PARTE CLIENTE?
+//					dos.writeBytes("Fila no valido\n");
 //					tablero.mostrarACliente(j2);
-//					
+//																				// Resolver numero fuera de rango con interfaz
 //					ponerFicha(tablero, j2);
 //				}
 				
@@ -96,8 +96,8 @@ public class Jugador {
 				
 				columna = dis.readInt();
 				
-//				while(columna < 1 || columna > 3) { // PARTE CLIENTE?
-//					dos.writeBytes("Movimiento no valido\n");
+//				if(columna < 1 || columna > 3) { // PARTE CLIENTE?
+//					dos.writeBytes("Columna no valido\n");
 //					tablero.mostrarACliente(j2);
 //					
 //					this.ponerFicha(tablero, j2);
