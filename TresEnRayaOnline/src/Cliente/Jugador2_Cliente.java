@@ -18,7 +18,7 @@ public class Jugador2_Cliente {
 		Scanner leo = new Scanner(System.in);
 		
 		try {
-			conexion = new Socket("localhost", 5050);
+			conexion = new Socket("localhost", 1337);
 			br = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 			dos = new DataOutputStream(conexion.getOutputStream());
 			
@@ -55,23 +55,16 @@ public class Jugador2_Cliente {
 			String linea;
 			int fila, columna;
 			try {
-				linea = br.readLine();
+				leeMensajesServidor(br);
 				
-				while(!linea.equals("-1")) { // Condicion de parada para leer la posicion
-					if(linea.equals("-2")) System.exit(0); // El servidor me enviará -2 si el tablero está lleno
-					
-					System.out.println(linea);	
-					
-					linea = br.readLine();
-				}
 				fila = leo.nextInt();
-				if(fila < 1 || fila > 3) eligePosicion(br, dos, leo);
+				if(fila < 1 || fila > 3) leeMensajesServidor(br); // Si no es valido se queda pillado en el br.readline de arriba
 				else dos.writeInt(leo.nextInt()); // Leo fila
 				
 				System.out.println(br.readLine()); // Digo que escriba columna
 				
 				columna = leo.nextInt();
-				if(columna < 1 || columna > 3) eligePosicion(br, dos, leo);
+				if(columna < 1 || columna > 3) leeMensajesServidor(br);
 				else dos.writeInt(leo.nextInt());
 				dos.writeInt(leo.nextInt()); // Leo columna
 				
@@ -79,8 +72,23 @@ public class Jugador2_Cliente {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	}
+	
+	public static void leeMensajesServidor(BufferedReader br) {
+		String linea;
+		try {
+			linea = br.readLine();
+			while(!linea.equals("-1")) { // Condicion de parada para leer la posicion
+				if(linea.equals("-2")) System.exit(0); // El servidor me enviará -2 si el tablero está lleno
+				
+				System.out.println(linea);	
+				
+				linea = br.readLine();
+			}
 			
-			
-
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

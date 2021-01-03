@@ -85,23 +85,23 @@ public class Jugador {
 				dos.writeBytes("-1\r\n"); // Marca de fin de bucle
 				fila = dis.readInt(); 			
 				
-				while(fila < 1 || fila > 3) { // PARTE CLIENTE?
-					dos.writeBytes("Movimiento no valido\n");
-					tablero.mostrarACliente(j2);
-					
-					ponerFicha(tablero, j2);
-				}
+//				while(fila < 1 || fila > 3) { // PARTE CLIENTE?
+//					dos.writeBytes("Movimiento no valido\n");
+//					tablero.mostrarACliente(j2);
+//					
+//					ponerFicha(tablero, j2);
+//				}
 				
 				dos.writeBytes("Columna ->: \r\n");
 				
 				columna = dis.readInt();
 				
-				while(columna < 1 || columna > 3) { // PARTE CLIENTE?
-					dos.writeBytes("Movimiento no valido\n");
-					tablero.mostrarACliente(j2);
-					
-					this.ponerFicha(tablero, j2);
-				}
+//				while(columna < 1 || columna > 3) { // PARTE CLIENTE?
+//					dos.writeBytes("Movimiento no valido\n");
+//					tablero.mostrarACliente(j2);
+//					
+//					this.ponerFicha(tablero, j2);
+//				}
 				
 				if(tablero.getTablero(fila, columna).equals("-")) { // Si no hay una ficha en esa posicion, la pone
 					tablero.setTablero(fila, columna, getFichaJugador()); // Evito que se pongan fichas superpuestas
