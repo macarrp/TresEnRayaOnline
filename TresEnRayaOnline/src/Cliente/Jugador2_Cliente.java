@@ -35,9 +35,7 @@ public class Jugador2_Cliente {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
 	}
 	
 	public static void eligePosicion(BufferedReader br, DataOutputStream dos, Socket conexion, Scanner leo) {
@@ -46,7 +44,10 @@ public class Jugador2_Cliente {
 				linea = br.readLine();
 				
 				while(!linea.equals("-1")) { 
-					System.out.println(linea);				
+					if(linea.equals("-2"))System.exit(0);
+					
+					System.out.println(linea);	
+					
 					linea = br.readLine();
 				}
 				dos.writeInt(leo.nextInt()); // Leo fila

@@ -8,7 +8,7 @@ public class Servidor {
 	public static void main(String[] args) {
 		try(ServerSocket server = new ServerSocket(5050)){
 			while(true) {
-				System.out.println("Esperando a jugador 2...");
+				System.out.println("Esperando a nuevo jugador 2...");
 				try {
 					Socket j2 = server.accept();
 					System.out.println("Jugador conectado con la ip " + j2.getInetAddress());
