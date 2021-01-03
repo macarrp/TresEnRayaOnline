@@ -46,10 +46,10 @@ public class Tablero {
 			dos = new DataOutputStream(conexion.getOutputStream());
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
-					dos.writeBytes('[' + tablero[i][j] + ']');
+					dos.writeBytes('[' + tablero[i][j] + ']'); // cambiar vitiviti
 					enviado =  enviado + ('[' + tablero[i][j] + ']');
 				}
-				dos.writeBytes("\n\n");
+				dos.writeBytes("\n");
 				dos.flush();
 				enviado = "";
 			}
@@ -63,9 +63,19 @@ public class Tablero {
 	public void limpiar() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				tablero[i][j] = "-";
+				tablero[i][j].equals("-");
 			}
 		}
+	}
+	
+	public boolean tableroLleno() {
+		int lleno = 0;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				lleno++;
+			}
+		}
+		return lleno == 9;
 	}
 
 	// Devuelve cierto si el jugador ha ganado, devuelve falso en caso contrario

@@ -25,8 +25,8 @@ public class Partida {
 		tablero.mostrar();
 		tablero.mostrarACliente(cliente);
 		
-		boolean hayGanador = false;
-		while(!hayGanador) {
+		boolean hayGanador = false, tableroLleno = tablero.tableroLleno();
+		while(!hayGanador || !tableroLleno) {
 			if(turno == 0) {
 				j1.ponerFicha(tablero, cliente);
 				turno = 1;
@@ -41,27 +41,36 @@ public class Partida {
 			tablero.mostrarACliente(cliente);
 		}
 		
-		// Si salgo del bucle es porque hay un ganador
-		if(tablero.hayGanador(j1)) System.out.println("Ha ganado el jugador 1");
-		else System.out.println("Ha ganado el jugador 2");
-		
-		System.out.println("¿Otra partida? (Y/N)");
-		reiniciarPartida(new Scanner(System.in));
-	}
-	
-	public void reiniciarPartida(Scanner yn) {
-		String respuesta = yn.nextLine();
-		if(respuesta.equalsIgnoreCase("y")) {
-			iniciarPartida();
-		}
-		else if(respuesta.equalsIgnoreCase("n")) {
-			System.out.println("Partida terminada");
+		// Si salgo del bucle es porque hay un ganador o porque el tablero está lleno
+		if(tablero.hayGanador(j1)) {
+			System.out.println("Ha ganado el jugador 1");
+			
 		}
 		else {
-			System.out.println("Caracter no valido");
-			System.out.println("¿Otra partida? (Y/N)");
-			reiniciarPartida(new Scanner(System.in));
+			System.out.println("Ha ganado el jugador 2");
 		}
+		
+		if(tableroLleno) {
+			System.out.println("EMPATE");
+		}
+		
+//		System.out.println("¿Otra partida? (Y/N)");
+//		reiniciarPartida(new Scanner(System.in));
 	}
+	
+//	public void reiniciarPartida(Scanner yn) {
+//		String respuesta = yn.nextLine();
+//		if(respuesta.equalsIgnoreCase("y")) {
+//			iniciarPartida();
+//		}
+//		else if(respuesta.equalsIgnoreCase("n")) {
+//			System.out.println("Partida terminada");
+//		}
+//		else {
+//			System.out.println("Caracter no valido");
+//			System.out.println("¿Otra partida? (Y/N)");
+//			reiniciarPartida(new Scanner(System.in));
+//		}
+//	}
 	
 }

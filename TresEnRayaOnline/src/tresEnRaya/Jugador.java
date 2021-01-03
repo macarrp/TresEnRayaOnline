@@ -62,7 +62,7 @@ public class Jugador {
 				columna = leer.nextInt();
 			}
 			
-			if(tablero.getTablero(fila, columna).equals("-")) {
+			if(tablero.getTablero(fila, columna).equals("-")) {		// Si no hay una ficha en esa posicion, la pone
 				tablero.setTablero(fila, columna, getFichaJugador());
 			}
 			else {
@@ -79,23 +79,27 @@ public class Jugador {
 				
 				System.out.println("Esperando que jugador 2 haga su jugada");
 				
-				dos.writeBytes("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha() + "\n\n");
+				dos.writeBytes("Introduce la fila y la columna donde quieres poner la pieza " + this.getFichaJugador().getFicha() + "\n");
 				
-				dos.writeBytes("Fila ->: \r\n"); 
+				dos.writeBytes("Fila ->: \r\n");			
 				fila = dis.readInt(); 			// SE QUEDA PILLADO EN ESTA LINEA
+				
 				while(fila < 1 || fila > 3) {
 					dos.writeBytes("Movimiento no valido");
 					tablero.mostrarACliente(j2);
-					dos.writeBytes("Fila ->: \r\n");
+					
+					dos.writeBytes("Fila ->: \r\n"); 
 					fila = dis.readInt();
 				}
 				
 				dos.writeBytes("Columna ->: \r\n");
 				columna = dis.readInt();
+				
 				while(columna < 1 || columna > 3) {
 					dos.writeBytes("Movimiento no valido");
 					tablero.mostrarACliente(j2);
-					dos.writeBytes("columna ->: \r\n");
+					
+					dos.writeBytes("Columna ->: \r\n");
 					columna = dis.readInt();
 				}
 				
@@ -103,7 +107,7 @@ public class Jugador {
 					tablero.setTablero(fila, columna, getFichaJugador());
 				}
 				else {
-					dos.writeBytes("Ya hay una pieza en esa posicion \n\n");
+					dos.writeBytes("Ya hay una pieza en esa posicion \n");
 					tablero.mostrarACliente(j2);
 					this.ponerFicha(tablero, j2);
 				}
