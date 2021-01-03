@@ -12,9 +12,10 @@ public class Partida {
 		this.cliente = cliente;
 	}
 	
+	// Inicia la partida del 3 en raya como tal
 	public void iniciarPartida() {
-		Random r = new Random(); // r.nextInt(0) Me devuelve un numero entre 0 y 1
-		int turno = 1; // Para que el jugador 2 empieze primero
+		Random r = new Random(); // r.nextInt(1) Me devuelve un numero entre 0 y 1
+		int turno = r.nextInt(1); // Empieza un jugador aleatorio
 		
 		Ficha fichaX = new Ficha("X"), fichaO = new Ficha("O");
 		
@@ -22,8 +23,8 @@ public class Partida {
 		Jugador j2 = new Jugador(fichaO); // Turno 1
 		
 		try {
-			DataOutputStream dos = new DataOutputStream(cliente.getOutputStream());
-			
+			DataOutputStream dos = new DataOutputStream(cliente.getOutputStream()); // Canal de comunicacion con el cliente
+																					// Solo lo uso para decir el ganador
 			Tablero tablero = new Tablero(j1, j2);
 			
 			tablero.mostrar();
@@ -49,12 +50,12 @@ public class Partida {
 			// Si salgo del bucle es porque hay un ganador o porque el tablero está lleno
 			String ganador;
 			if(tablero.hayGanador(j1)) {
-				ganador = "Ha ganado el jugador 1";
+				ganador = "Ha ganado el jugador 1 [" + j1.getFichaJugador().toString() + "]";
 				System.out.println(ganador);
 				dos.writeBytes(ganador + "\r\n");
 			}
 			else if(tablero.hayGanador(j2)){
-				ganador = "Ha ganado el jugador 2";
+				ganador = "Ha ganado el jugador 2 [" + j2.getFichaJugador().toString() + "]";
 				System.out.println(ganador);
 				dos.writeBytes(ganador + "\r\n");
 			}
