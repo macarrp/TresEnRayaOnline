@@ -27,8 +27,14 @@ public class Partida {
 																					
 			Tablero tablero = new Tablero();
 			
-			if(turno == 0) System.out.println("TURNO JUGADOR 1");
-			else dos.writeBytes("TURNO JUGADOR 2\n");
+			if(turno == 0) {
+				System.out.println("\nTURNO JUGADOR 1"); 
+				dos.writeBytes("TURNO JUGADOR 1\n");
+			}
+			else {
+				System.out.println("\nTURNO JUGADOR 2"); 
+				dos.writeBytes("TURNO JUGADOR 2\n");
+			}
 			
 			tablero.mostrar();
 			tablero.mostrarACliente(cliente);
@@ -46,11 +52,11 @@ public class Partida {
 					hayGanador = tablero.hayGanador(j2);
 				}
 				if(turno == 0) {
-					System.out.println("TURNO JUGADOR 1"); 
+					System.out.println("\nTURNO JUGADOR 1"); 
 					dos.writeBytes("TURNO JUGADOR 1\n");
 				}
 				else {
-					System.out.println("TURNO JUGADOR 2"); 
+					System.out.println("\nTURNO JUGADOR 2"); 
 					dos.writeBytes("TURNO JUGADOR 2\n");
 				}
 				

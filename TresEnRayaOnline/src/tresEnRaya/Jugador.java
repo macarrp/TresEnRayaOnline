@@ -37,7 +37,7 @@ public class Jugador {
 		if(this.getFichaJugador().getFicha().equals("X")) { // JUGADOR 1
 			try {
 				dos = new DataOutputStream(j2.getOutputStream());
-				dos.writeBytes("Esperando a que jugador 1 haga su jugada \n"); // Mientras jugador 1 hace su jugada, aviso a jugador 2
+				dos.writeBytes("Esperando a que jugador 1 haga su jugada \n\n"); // Mientras jugador 1 hace su jugada, aviso a jugador 2
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

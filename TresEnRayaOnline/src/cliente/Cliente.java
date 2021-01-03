@@ -8,11 +8,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class Cliente_J2 extends Thread{
+public class Cliente extends Thread{
 	String host;
 	int puerto;
 	
-	public Cliente_J2(String host, int puerto) {
+	public Cliente(String host, int puerto) {
 		this.host = host;
 		this.puerto = puerto;
 	}
@@ -28,6 +28,9 @@ public class Cliente_J2 extends Thread{
 			conexion = new Socket(host, puerto);
 			br = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 			dos = new DataOutputStream(conexion.getOutputStream());
+			
+			System.out.println("Conectado al servidor " + conexion.getInetAddress());
+			System.out.println("Empezando partida\n");
 			
 			eligePosicion(br, dos, leo); // Primera ficha
 			eligePosicion(br, dos, leo); // Segunda ficha
