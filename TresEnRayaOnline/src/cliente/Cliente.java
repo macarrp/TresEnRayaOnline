@@ -8,16 +8,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class Cliente extends Thread{
-	String host;
-	int puerto;
-	
-	public Cliente(String host, int puerto) {
-		this.host = host;
-		this.puerto = puerto;
-	}
-	
-	public void run() {
+public class Cliente{
+	public static void main(String [] args) {
+		String host = "localhost";
+		int puerto = 1337;
+		
 		Socket conexion = null;
 		BufferedReader br = null;
 		DataOutputStream dos = null;
@@ -25,12 +20,12 @@ public class Cliente extends Thread{
 		Scanner leo = new Scanner(System.in);
 		
 		try {
-			conexion = new Socket(host, puerto);
+			conexion = new Socket(host, puerto); 
 			br = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 			dos = new DataOutputStream(conexion.getOutputStream());
 			
 			System.out.println("Conectado al servidor " + conexion.getInetAddress());
-			System.out.println("Empezando partida\n");
+			
 			
 			eligePosicion(br, dos, leo); // Primera ficha
 			eligePosicion(br, dos, leo); // Segunda ficha
@@ -85,7 +80,7 @@ public class Cliente extends Thread{
 		try {
 			linea = br.readLine();
 			while(!linea.equals("-1")) { // Condicion de parada para leer la posicion
-				if(linea.equals("-2")) System.exit(0); 	// El servidor me enviará -2 si el tablero está lleno
+				if(linea.equals("-2")) System.exit(0); 	// El servidor me enviará -2 si el tablero está lleno ó no hay mas datos que enviar
 														// Por lo que ya paro la aplicación
 				System.out.println(linea);	
 				

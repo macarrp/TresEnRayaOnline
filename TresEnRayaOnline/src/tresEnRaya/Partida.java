@@ -6,10 +6,11 @@ import java.net.Socket;
 import java.util.Random;
 
 public class Partida {
-	private Socket cliente;
+	private Socket j1, j2;
 	
-	public Partida(Socket cliente) {
-		this.cliente = cliente;
+	public Partida(Socket j1, Socket j2) {
+		this.j1 = j1;
+		this.j2 = j2;
 	}
 	
 	// Inicia la partida del 3 en raya como tal
@@ -19,71 +20,86 @@ public class Partida {
 		
 		Ficha fichaX = new Ficha("X"), fichaO = new Ficha("O");
 		
-		Jugador j1 = new Jugador(fichaX); // Turno 0
-		Jugador j2 = new Jugador(fichaO); // Turno 1
+		Jugador jug1 = new Jugador(fichaX); // Turno 0
+		Jugador jug2 = new Jugador(fichaO); // Turno 1
 		
 		try {
-			DataOutputStream dos = new DataOutputStream(cliente.getOutputStream()); // Canal de comunicacion con el cliente
+			DataOutputStream dos1 = new DataOutputStream(j1.getOutputStream()); // Canal de comunicacion con el j1
+			DataOutputStream dos2 = new DataOutputStream(j2.getOutputStream()); // Canal de comunicacion con el j2
 																					
 			Tablero tablero = new Tablero();
 			
 			if(turno == 0) {
-				System.out.println("\nTURNO JUGADOR 1"); 
-				dos.writeBytes("TURNO JUGADOR 1\n");
+				System.out.println("\nTURNO JUGADOR 1"); // Solo para tener constancia en el servidor
+				dos1.writeBytes("TURNO JUGADOR 1\n");
+				dos2.writeBytes("TURNO JUGADOR 1\n");
 			}
 			else {
-				System.out.println("\nTURNO JUGADOR 2"); 
-				dos.writeBytes("TURNO JUGADOR 2\n");
+				System.out.println("\nTURNO JUGADOR 2"); // Solo para tener constancia en el servidor
+				dos1.writeBytes("TURNO JUGADOR 2\n");
+				dos2.writeBytes("TURNO JUGADOR 2\n");
 			}
 			
-			tablero.mostrar();
-			tablero.mostrarACliente(cliente);
+//			tablero.mostrar();
+			tablero.mostrarACliente(j1);
+			tablero.mostrarACliente(j2);
 			
 			boolean hayGanador = false, tableroLleno = false;
 			while(!hayGanador && !tableroLleno) {
 				if(turno == 0) {
-					j1.ponerFicha(tablero, cliente);
+					jug1.ponerFicha(tablero, j1, j2);
 					turno = 1;
-					hayGanador = tablero.hayGanador(j1);
+					hayGanador = tablero.hayGanador(jug1);
 				}
 				else {
-					j2.ponerFicha(tablero, cliente);
+					jug2.ponerFicha(tablero, j1, j2);
 					turno = 0;
-					hayGanador = tablero.hayGanador(j2);
+					hayGanador = tablero.hayGanador(jug2);
 				}
 				if(turno == 0) {
-					System.out.println("\nTURNO JUGADOR 1"); 
-					dos.writeBytes("TURNO JUGADOR 1\n");
+					System.out.println("\nTURNO JUGADOR 1"); // Solo para tener constancia en el servidor
+					dos1.writeBytes("TURNO JUGADOR 1\n");
+					dos2.writeBytes("TURNO JUGADOR 1\n");
 				}
 				else {
-					System.out.println("\nTURNO JUGADOR 2"); 
-					dos.writeBytes("TURNO JUGADOR 2\n");
+					System.out.println("\nTURNO JUGADOR 2"); // Solo para tener constancia en el servidor
+					dos1.writeBytes("TURNO JUGADOR 2\n");
+					dos2.writeBytes("TURNO JUGADOR 2\n");
 				}
 				
-				tablero.mostrar();
-				tablero.mostrarACliente(cliente);
+				tablero.mostrar(); // El servidor puede ver el estado de la partida
+				tablero.mostrarACliente(j1);
+				tablero.mostrarACliente(j2);
 				tableroLleno = tablero.tableroLleno();
 			}
 			
 			// Si salgo del bucle es porque hay un ganador o porque el tablero está lleno
 			String ganador;
-			if(tablero.hayGanador(j1)) {
-				ganador = "Ha ganado el jugador 1 [" + j1.getFichaJugador().toString() + "]";
-				System.out.println(ganador);
-				dos.writeBytes(ganador + "\r\n");
+			if(tablero.hayGanador(jug1)) {
+				ganador = "Ha ganado el jugador 1 [" + jug1.getFichaJugador().toString() + "]";
+				System.out.println(ganador);		// INFO server
+				dos1.writeBytes(ganador + "\r\n");
+				dos2.writeBytes(ganador + "\r\n");
 			}
-			else if(tablero.hayGanador(j2)){
-				ganador = "Ha ganado el jugador 2 [" + j2.getFichaJugador().toString() + "]";
-				System.out.println(ganador);
-				dos.writeBytes(ganador + "\r\n");
+			else if(tablero.hayGanador(jug2)){
+				ganador = "Ha ganado el jugador 2 [" + jug2.getFichaJugador().toString() + "]";
+				System.out.println(ganador);		// INFO server
+				dos1.writeBytes(ganador + "\r\n");
+				dos2.writeBytes(ganador + "\r\n");
 			}
 			
 			else {
 				ganador = "EMPATE";
-				System.out.println(ganador);
-				dos.writeBytes(ganador + "\r\n");
+				System.out.println(ganador);		// INFO server
+				dos1.writeBytes(ganador + "\r\n");
+				dos2.writeBytes(ganador + "\r\n");
 			}
-			dos.writeBytes("-2\r\n");
+			dos1.writeBytes("-2\r\n"); // Para terminar la partida(El cliente)
+			System.out.println("Jugador 1 desconectado");
+			
+			dos2.writeBytes("-2\r\n");
+			System.out.println("Jugador 2 desconectado");
+			
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
