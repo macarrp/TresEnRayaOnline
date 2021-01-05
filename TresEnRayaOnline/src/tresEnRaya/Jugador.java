@@ -62,6 +62,7 @@ public class Jugador {
 				System.out.println("Jugador 1 introduciendo columna");
 				
 				dos1.writeBytes("Columna ->:\r");
+				dos1.flush();
 				columna = dis.readInt();
 //				while (columna < 1 || columna > 3) {
 //					System.out.println("Columna no valido");
@@ -129,7 +130,7 @@ public class Jugador {
 				if (tablero.getTablero(fila, columna).equals("-")) { // Si no hay una ficha en esa posicion, la pone. Evito que se pongan fichas superpuestas
 					tablero.setTablero(fila, columna, getFichaJugador()); // Actualizo tablero
 				} else {
-					dos1.writeBytes("¡Ya hay una pieza en esa posicion! \n");
+					dos2.writeBytes("¡Ya hay una pieza en esa posicion! \n");
 					tablero.mostrarACliente(sc2);
 					System.out.println("Movimiento no valido de j2");	// INFO server
 					this.ponerFicha(tablero, sc1, sc2); // Vuelvo a preguntar por una posicion valida

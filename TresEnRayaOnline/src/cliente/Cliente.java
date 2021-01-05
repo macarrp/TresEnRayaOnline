@@ -34,6 +34,8 @@ public class Cliente{
 			eligePosicion(br, dos, leo); // Quinta ficha
 			eligePosicion(br, dos, leo); // Sexta lectura por si hay empate
 			
+			System.out.println("Partida terminada");
+			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,7 +56,6 @@ public class Cliente{
 	}
 	
 	public static void eligePosicion(BufferedReader br, DataOutputStream dos, Scanner leo) {
-			String linea;
 			int fila, columna;
 			try {
 				leeMensajesServidor(br);
@@ -80,7 +81,7 @@ public class Cliente{
 		try {
 			linea = br.readLine();
 			while(!linea.equals("-1")) { // Condicion de parada para leer la posicion
-				if(linea.equals("-2")) System.exit(0); 	// El servidor me enviará -2 si el tablero está lleno ó no hay mas datos que enviar
+				if(linea.equals("-2")) System.exit(0); 	// El servidor me enviará -2 si el tablero está lleno ó si no hay mas datos que enviar 
 														// Por lo que ya paro la aplicación
 				System.out.println(linea);	
 				
