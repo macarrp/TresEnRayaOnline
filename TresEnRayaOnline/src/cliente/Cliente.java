@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import interfaz.InterfazGrafica;
+
 public class Cliente{
 	public static void main(String [] args) {
 		String host = "localhost";
@@ -25,6 +27,9 @@ public class Cliente{
 			dos = new DataOutputStream(conexion.getOutputStream());
 			
 			System.out.println("Conectado al servidor " + conexion.getInetAddress());
+			
+			InterfazGrafica interfaz = new InterfazGrafica(tablero);
+			interfaz.mostrar();
 			
 			
 			eligePosicion(br, dos, leo); // Primera ficha

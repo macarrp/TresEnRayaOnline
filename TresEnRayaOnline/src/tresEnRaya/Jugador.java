@@ -26,21 +26,20 @@ public class Jugador {
 		return this.ficha.toString();
 	}
 
-	// Pone una ficha en el tablero, también controla que los numeros introducidos
-	// sean validos
+	// Pone una ficha en el tablero
 	public void ponerFicha(Tablero tablero, Socket sc1, Socket sc2) {
-		DataOutputStream dos1 = null; // Dos canales para enviar datos al cliente 2
-		DataOutputStream dos2 = null; // Dos canales para enviar datos al cliente 1
+		DataOutputStream dos1 = null; // Dos canales para enviar datos al cliente 1
+		DataOutputStream dos2 = null; // Dos canales para enviar datos al cliente 2
 		DataInputStream dis = null;
 		int fila, columna; // Las posiciones donde se colocaran las fichas
 
-		if (this.getFichaJugador().getFicha().equals("X")) { // JUGADOR 1
+		if (this.getFichaJugador().getFicha().equals("X")) { 	// JUGADOR 1
 			try {
 				dis = new DataInputStream(sc1.getInputStream());
 				dos1 = new DataOutputStream(sc1.getOutputStream());
 				dos2 = new DataOutputStream(sc2.getOutputStream());
 				
-				dos2.writeBytes("Esperando a que jugador 1 haga su jugada \n\n"); // Mientras jugador 1 hace su jugada,
+				dos2.writeBytes("Esperando a que jugador 1 haga su jugada \n\n"); 	// Mientras jugador 1 hace su jugada,
 																					// aviso a jugador 2
 
 				System.out.println("Esperando a que jugador 1 haga su jugada"); // Info server

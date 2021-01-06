@@ -6,11 +6,22 @@ import java.net.Socket;
 
 public class Tablero {
 	private String[][] tablero;
+	private Jugador j1, j2;
 
 	// Inicializa el tablero pasados como parámetros dos jugadores
-	public Tablero() {
+	public Tablero(Jugador j1, Jugador j2) {
 		this.tablero = new String[3][3];
 		limpiar();
+		this.j1 = j1;
+		this.j2 = j2;
+	}
+	
+	public Jugador getJ1() {
+		return j1;
+	}
+	
+	public Jugador getJ2() {
+		return j2;
 	}
 	
 	// Pone una ficha en el tablero una vez pasados su fila y su columna
@@ -68,13 +79,17 @@ public class Tablero {
 	
 	// Devuelve cierto si el tablero esta lleno y falso en caso contrario
 	public boolean tableroLleno() {
+		return numFichasEnTablero() == 9;
+	}
+	
+	public int numFichasEnTablero() {
 		int lleno = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if(!tablero[i][j].equals("-")) lleno++;
 			}
 		}
-		return lleno == 9;
+		return lleno;
 	}
 
 	// Devuelve cierto si el jugador ha ganado y devuelve falso en caso contrario

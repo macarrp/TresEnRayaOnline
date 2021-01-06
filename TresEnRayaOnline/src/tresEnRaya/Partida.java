@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Random;
 
+import interfaz.InterfazGrafica;
+
 public class Partida {
 	private Socket j1, j2;
 	
@@ -27,7 +29,7 @@ public class Partida {
 			DataOutputStream dos1 = new DataOutputStream(j1.getOutputStream()); // Canal de comunicacion con el j1
 			DataOutputStream dos2 = new DataOutputStream(j2.getOutputStream()); // Canal de comunicacion con el j2
 																					
-			Tablero tablero = new Tablero();
+			Tablero tablero = new Tablero(jug1, jug2);
 			
 			if(turno == 0) {
 				System.out.println("\nTURNO JUGADOR 1"); // Solo para tener constancia en el servidor
@@ -40,7 +42,6 @@ public class Partida {
 				dos2.writeBytes("TURNO JUGADOR 2\n");
 			}
 			
-//			tablero.mostrar();
 			tablero.mostrarACliente(j1);
 			tablero.mostrarACliente(j2);
 			

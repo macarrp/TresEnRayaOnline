@@ -1,27 +1,37 @@
 package interfaz;
 
-import javax.swing.JFrame;
 import java.awt.GridLayout;
-import javax.swing.JButton;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+import tresEnRaya.Jugador;
+import tresEnRaya.Tablero;
+import javax.swing.JSplitPane;
+
 public class InterfazGrafica extends JFrame {
-	public InterfazGrafica() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\mel_a\\git\\TresEnRayaOnline\\TresEnRayaOnline\\Icono3.ico"));
+	private Jugador j1, j2;
+	private Tablero t;
+	
+	public InterfazGrafica(Tablero t) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InterfazGrafica.class.getResource("/interfaz/Icono3.ico")));
 		setTitle("Tres en Raya # ONLINE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(400, 400, 400, 400);
+		setBounds(400, 400, 437, 407);
 		setResizable(false);
 		getContentPane().setLayout(new GridLayout(0, 3, 0, 0));
+		
+		this.t = t;
+		j1 = t.getJ1(); j2 = t.getJ2();
 		
 		JButton bt1 = new JButton("");
 		bt1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				bt1.setText("X");	
-				
+				bt1.setText(fichaJugador());	
 			}
 		});
 		getContentPane().add(bt1);
@@ -30,7 +40,7 @@ public class InterfazGrafica extends JFrame {
 		bt2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				bt2.setText("X");
+				bt2.setText(fichaJugador());
 			}
 		});
 		getContentPane().add(bt2);
@@ -39,7 +49,7 @@ public class InterfazGrafica extends JFrame {
 		bt3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				bt3.setText("X");
+				bt3.setText(fichaJugador());
 			}
 		});
 		getContentPane().add(bt3);
@@ -48,7 +58,7 @@ public class InterfazGrafica extends JFrame {
 		bt4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				bt4.setText("X");
+				bt4.setText(fichaJugador());
 			}
 		});
 		getContentPane().add(bt4);
@@ -57,7 +67,7 @@ public class InterfazGrafica extends JFrame {
 		bt5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				bt5.setText("X");
+				bt5.setText(fichaJugador());
 			}
 		});
 		getContentPane().add(bt5);
@@ -66,7 +76,7 @@ public class InterfazGrafica extends JFrame {
 		bt6.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				bt6.setText("X");
+				bt6.setText(fichaJugador());
 			}
 		});
 		getContentPane().add(bt6);
@@ -75,7 +85,7 @@ public class InterfazGrafica extends JFrame {
 		bt7.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				bt7.setText("X");
+				bt7.setText(fichaJugador());
 			}
 		});
 		getContentPane().add(bt7);
@@ -84,7 +94,7 @@ public class InterfazGrafica extends JFrame {
 		bt8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				bt8.setText("X");
+				bt8.setText(fichaJugador());
 			}
 		});
 		getContentPane().add(bt8);
@@ -93,7 +103,7 @@ public class InterfazGrafica extends JFrame {
 		bt9.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				bt9.setText("X");
+				bt9.setText(fichaJugador());
 			}
 		});
 		getContentPane().add(bt9);
@@ -101,7 +111,17 @@ public class InterfazGrafica extends JFrame {
 		
 	}
 
-	public void mostrarInterfaz() {
+	public void mostrar() {
 		this.setVisible(true);
+	}
+	
+	private int getTurno() {
+		if(t.numFichasEnTablero() % 2 == 0) return 0; 	// Si el numero de fichas es par, le toca a jugador 1
+		else return 1;									// Si no, le toca al jugador 2
+	}
+	
+	private String fichaJugador() {
+		if(getTurno() == 0) return "X"; 	// Jugador 1
+		else return "O";					// Jugador 2	
 	}
 }
