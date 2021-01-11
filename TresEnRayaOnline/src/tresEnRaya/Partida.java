@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Random;
 
-import interfaz.InterfazGrafica;
-
 public class Partida {
 	private Socket j1, j2;
 	private int idPartida;
