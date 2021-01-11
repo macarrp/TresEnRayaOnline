@@ -9,10 +9,29 @@ import interfaz.InterfazGrafica;
 
 public class Partida {
 	private Socket j1, j2;
+	private int idPartida;
+	
+	public Partida() { }
 	
 	public Partida(Socket j1, Socket j2) {
 		this.j1 = j1;
 		this.j2 = j2;
+		
+	}
+	
+	public void crearPartida(int idPartida, Socket sc) {
+		this.idPartida = idPartida;
+		this.j1 = sc;
+	}
+	
+	public void unirsePartida(int idPartida, Socket sc) {
+		this.idPartida = idPartida;
+		this.j2 = sc;
+	}
+	
+	public boolean hayJugadoresEmpezarPartida() {
+		if(j1 == null || j2 == null) return false;
+		else return true;
 	}
 	
 	// Inicia la partida del 3 en raya como tal
