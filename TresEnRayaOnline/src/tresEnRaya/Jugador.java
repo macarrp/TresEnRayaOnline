@@ -40,7 +40,7 @@ public class Jugador {
 				dos2 = new DataOutputStream(sc2.getOutputStream());
 				
 				dos2.writeBytes("Esperando a que jugador 1 haga su jugada \n\n"); 	// Mientras jugador 1 hace su jugada,
-																					// aviso a jugador 2
+				dos2.flush();														// aviso a jugador 2
 
 				System.out.println("Esperando a que jugador 1 haga su jugada"); // Info server
 
@@ -48,6 +48,8 @@ public class Jugador {
 
 				dos1.writeBytes("Fila ->:\r");
 				dos1.writeBytes("-1\r\n"); // Marca de fin de bucle
+				dos1.flush();
+				
 				
 				System.out.println("Jugador 1 introduciendo fila");
 				
@@ -74,8 +76,9 @@ public class Jugador {
 					tablero.setTablero(fila, columna, getFichaJugador()); // Actualizo el tablero
 				} else {
 					dos1.writeBytes("¡Ya hay una pieza en esa posicion! \n"); // Si se intenta, le avisa
+					dos1.flush();
 					tablero.mostrarACliente(sc1);
-					System.out.println("Movimiento no valido de j1");
+					System.out.println("Movimiento no valido de j1"); // Info server
 					this.ponerFicha(tablero, sc1, sc2); // Vuelvo a preguntar por una posicion valida
 				}
 
@@ -92,8 +95,8 @@ public class Jugador {
 				
 				dos1.writeBytes("Esperando a que jugador 2 haga su jugada \n\n");
 
-				System.out.println("Esperando que jugador 2 haga su jugada"); // Mientras jugador 1 hace su jugada,
-																				// aviso a jugador 2
+				System.out.println("Esperando que jugador 2 haga su jugada"); 	// Mientras jugador 1 hace su jugada,
+				dos1.flush();													// aviso a jugador 2
 				
 
 				dos2.writeBytes("Introduce la fila y la columna donde quieres poner la pieza "
@@ -101,35 +104,24 @@ public class Jugador {
 
 				dos2.writeBytes("Fila ->:\r");
 				dos2.writeBytes("-1\r\n"); // Marca de fin de bucle
+				dos2.flush();
 				
 				System.out.println("Jugador 2 introduciendo fila");
 				
 				fila = dis.readInt();
 
-//				if(fila < 1 || fila > 3) { // PARTE CLIENTE?
-//					dos.writeBytes("Fila no valido\n");
-//					tablero.mostrarACliente(sc);
-//																				// Resolver numero fuera de rango con interfaz
-//					ponerFicha(tablero, sc);
-//				}
-
 				dos2.writeBytes("Columna ->: \r\n");
-
+				dos2.flush();
+				
 				System.out.println("Jugador 2 introduciendo columna");
 				
-				columna = dis.readInt();
-
-//				if(columna < 1 || columna > 3) { // PARTE CLIENTE?
-//					dos.writeBytes("Columna no valido\n");
-//					tablero.mostrarACliente(sc);
-//					
-//					this.ponerFicha(tablero, sc);
-//				}
+				columna = dis.readInt();			
 
 				if (tablero.getTablero(fila, columna).equals("-")) { // Si no hay una ficha en esa posicion, la pone. Evito que se pongan fichas superpuestas
 					tablero.setTablero(fila, columna, getFichaJugador()); // Actualizo tablero
 				} else {
 					dos2.writeBytes("¡Ya hay una pieza en esa posicion! \n");
+					dos2.flush();
 					tablero.mostrarACliente(sc2);
 					System.out.println("Movimiento no valido de j2");	// INFO server
 					this.ponerFicha(tablero, sc1, sc2); // Vuelvo a preguntar por una posicion valida

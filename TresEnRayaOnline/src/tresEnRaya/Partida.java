@@ -35,11 +35,15 @@ public class Partida {
 				System.out.println("\nTURNO JUGADOR 1"); // Solo para tener constancia en el servidor
 				dos1.writeBytes("TURNO JUGADOR 1\n");
 				dos2.writeBytes("TURNO JUGADOR 1\n");
+				dos1.flush();
+				dos2.flush();
 			}
 			else {
 				System.out.println("\nTURNO JUGADOR 2"); // Solo para tener constancia en el servidor
 				dos1.writeBytes("TURNO JUGADOR 2\n");
 				dos2.writeBytes("TURNO JUGADOR 2\n");
+				dos1.flush();
+				dos2.flush();
 			}
 			
 			tablero.mostrarACliente(j1);
@@ -61,11 +65,15 @@ public class Partida {
 					System.out.println("\nTURNO JUGADOR 1"); // Solo para tener constancia en el servidor
 					dos1.writeBytes("TURNO JUGADOR 1\n");
 					dos2.writeBytes("TURNO JUGADOR 1\n");
+					dos1.flush();
+					dos2.flush();
 				}
 				else {
 					System.out.println("\nTURNO JUGADOR 2"); // Solo para tener constancia en el servidor
 					dos1.writeBytes("TURNO JUGADOR 2\n");
 					dos2.writeBytes("TURNO JUGADOR 2\n");
+					dos1.flush();
+					dos2.flush();
 				}
 				
 				tablero.mostrar(); // El servidor puede ver el estado de la partida
@@ -81,12 +89,16 @@ public class Partida {
 				System.out.println(ganador);		// INFO server
 				dos1.writeBytes(ganador + "\r\n");
 				dos2.writeBytes(ganador + "\r\n");
+				dos1.flush();
+				dos2.flush();
 			}
 			else if(tablero.hayGanador(jug2)){
 				ganador = "Ha ganado el jugador 2 [" + jug2.getFichaJugador().toString() + "]";
 				System.out.println(ganador);		// INFO server
 				dos1.writeBytes(ganador + "\r\n");
 				dos2.writeBytes(ganador + "\r\n");
+				dos1.flush();
+				dos2.flush();
 			}
 			
 			else {
@@ -94,13 +106,16 @@ public class Partida {
 				System.out.println(ganador);		// INFO server
 				dos1.writeBytes(ganador + "\r\n");
 				dos2.writeBytes(ganador + "\r\n");
+				dos1.flush();
+				dos2.flush();
 			}
 			dos1.writeBytes("-2\r\n"); // Para terminar la partida(El cliente)
 			System.out.println("Jugador 1 desconectado");
 			
 			dos2.writeBytes("-2\r\n");
 			System.out.println("Jugador 2 desconectado");
-			
+			dos1.flush();
+			dos2.flush();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

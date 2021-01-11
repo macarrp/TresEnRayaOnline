@@ -28,8 +28,8 @@ public class Cliente{
 			
 			System.out.println("Conectado al servidor " + conexion.getInetAddress());
 			
-			InterfazGrafica interfaz = new InterfazGrafica(tablero);
-			interfaz.mostrar();
+//			InterfazGrafica interfaz = new InterfazGrafica(tablero);
+//			interfaz.mostrar();
 			
 			
 			eligePosicion(br, dos, leo); // Primera ficha
