@@ -8,8 +8,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-import interfaz.InterfazGrafica;
-
 public class Cliente{
 	public static void main(String [] args) {
 		String host = "localhost";
@@ -30,12 +28,14 @@ public class Cliente{
 			
 			System.out.println("1.Crear partida");
 			System.out.println("2.Unirse a partida");
+			System.out.print(": ");
 			
 			int info = leo.nextInt();
 			if(info<1 || info >2) {
 				System.out.println("Numero no válido, introduzca 1 o 2");
 				System.out.println("1.Crear partida");
 				System.out.println("2.Unirse a partida");
+				System.out.print(": ");
 				info = leo.nextInt();
 			}
 			int idPartida;
