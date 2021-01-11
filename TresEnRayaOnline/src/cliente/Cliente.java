@@ -24,33 +24,7 @@ public class Cliente{
 			br = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 			dos = new DataOutputStream(conexion.getOutputStream());
 			
-			System.out.println("Conectado al servidor " + conexion.getInetAddress());
-			
-			System.out.println("1.Crear partida");
-			System.out.println("2.Unirse a partida");
-			System.out.print(": ");
-			
-			int info = leo.nextInt();
-			if(info<1 || info >2) {
-				System.out.println("Numero no válido, introduzca 1 o 2");
-				System.out.println("1.Crear partida");
-				System.out.println("2.Unirse a partida");
-				System.out.print(": ");
-				info = leo.nextInt();
-			}
-			int idPartida;
-			
-			if(info == 1) {
-				dos.writeBytes("CREAR\r\n");
-			}
-			else {
-				System.out.println("Introduce idPartida: ");
-				idPartida = leo.nextInt();
-				
-				dos.writeBytes("UNIRSE\r\n");
-				dos.writeInt(idPartida);
-			}
-			dos.flush();
+			System.out.println("Conectado al servidor " + conexion.getInetAddress()); // Para verificar que se ha hecho la conexion
 			
 			eligePosicion(br, dos, leo); // Primera ficha
 			eligePosicion(br, dos, leo); // Segunda ficha

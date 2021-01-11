@@ -25,8 +25,8 @@ public class Jugador {
 
 	// Pone una ficha en el tablero
 	public void ponerFicha(Tablero tablero, Socket sc1, Socket sc2) {
-		DataOutputStream dos1 = null; // Dos canales para enviar datos al cliente 1
-		DataOutputStream dos2 = null; // Dos canales para enviar datos al cliente 2
+		DataOutputStream dos1 = null; // Canal para enviar datos al cliente 1
+		DataOutputStream dos2 = null; // Canal para enviar datos al cliente 2
 		DataInputStream dis = null;
 		int fila, columna; // Las posiciones donde se colocaran las fichas
 
@@ -51,23 +51,12 @@ public class Jugador {
 				System.out.println("Jugador 1 introduciendo fila");
 				
 				fila = dis.readInt();
-//				while (fila < 1 || fila > 3) {
-//					System.out.println("Fila no valido");
-//					tablero.mostrar();
-//					System.out.print("Fila ->: ");
-//					fila = leer.nextInt();
-//				}
+
 				System.out.println("Jugador 1 introduciendo columna");
 				
 				dos1.writeBytes("Columna ->:\r");
 				dos1.flush();
 				columna = dis.readInt();
-//				while (columna < 1 || columna > 3) {
-//					System.out.println("Columna no valido");
-//					tablero.mostrar();
-//					System.out.print("Columna ^: ");
-//					columna = leer.nextInt();
-//				}
 
 				if (tablero.getTablero(fila, columna).equals("-")) { // Si no hay una ficha en esa posicion, la pone. Evito que se pongan fichas superpuestas
 					tablero.setTablero(fila, columna, getFichaJugador()); // Actualizo el tablero

@@ -139,25 +139,6 @@ public class Partida {
 			e.printStackTrace();
 		}
 		
-		
-		
-//		System.out.println("¿Otra partida? (Y/N)");
-//		reiniciarPartida(new Scanner(System.in));
 	}
-	
-//	public void reiniciarPartida(Scanner yn) {
-//		String respuesta = yn.nextLine();
-//		if(respuesta.equalsIgnoreCase("y")) {
-//			iniciarPartida();
-//		}
-//		else if(respuesta.equalsIgnoreCase("n")) {
-//			System.out.println("Partida terminada");
-//		}
-//		else {
-//			System.out.println("Caracter no valido");
-//			System.out.println("¿Otra partida? (Y/N)");
-//			reiniciarPartida(new Scanner(System.in));
-//		}
-//	}
 	
 }
